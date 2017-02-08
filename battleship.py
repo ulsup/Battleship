@@ -74,28 +74,28 @@ def ship_size(sequence, point):
                 pass
             poryadok += left
             try:
-                while sequence[coordinates + 1] == '*':
+                while sequence[coordinates + 1][poryadok] == '*':
                     count += 1
                     coordinates += 1
-                    up += 1
-            except IndexError:
-                pass
-            coordinates -= up
-            try:
-                while sequence[coordinates - 1] == '*':
-                    count += 1
-                    coordinates -= 1
                     down += 1
             except IndexError:
                 pass
-            coordinates += down
+            coordinates -= down
+            try:
+                while sequence[coordinates - 1][poryadok] == '*':
+                    count += 1
+                    coordinates -= 1
+                    up += 1
+            except IndexError:
+                pass
+            coordinates += up
         else:
              return 'There is no ship in this area.'
         return count
     else:
         return 'You should enter uppercase letters between A and J and numbers between 1 and 10'
 
-print(ship_size(read_field('field.txt'), ('J', 4)))
+print(ship_size(read_field('field.txt'), ('I', 7)))
 
 def is_valid(sequence):
     '''
