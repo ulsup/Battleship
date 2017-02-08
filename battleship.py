@@ -46,38 +46,56 @@ def ship_size(sequence, point):
         if point[0] in i:
             poryadok = i[1] - 1
             break
-    ryadok = sequence[point[1] - 1]
+    coordinates = point[1] - 1
+    ryadok = sequence[coordinates]
     if point in tuples:
         if ryadok[poryadok] == '*':
             count = 1
-            while True:
-                if ryadok[poryadok + 1] == '*':
+            right = 0
+            left = 0
+            up = 0
+            down = 0
+            try:
+                while ryadok[poryadok + 1] == '*':
                     count += 1
                     poryadok += 1
-                break
-            while True:
-                if ryadok[poryadok - 1] == '*':
+                    right += 1
+            except IndexError:
+                pass
+            poryadok -= right
+            try:
+                while ryadok[poryadok - 1] == '*':
+                    if poryadok == 0:
+                        break
                     count += 1
                     poryadok -= 1
-                break
-            while True:
-                if sequence[point[1]] == '*':
+                    left -= 1
+            except IndexError:
+                pass
+            poryadok += left
+            try:
+                while sequence[coordinates + 1] == '*':
                     count += 1
-                    point[1] += 1
-                break
-            while True:
-                if sequence[point[1] - 2] == '*':
+                    coordinates += 1
+                    up += 1
+            except IndexError:
+                pass
+            coordinates -= up
+            try:
+                while sequence[coordinates - 1] == '*':
                     count += 1
-                    point[1] -= 1
-                break
-            return count
+                    coordinates -= 1
+                    down += 1
+            except IndexError:
+                pass
+            coordinates += down
         else:
              return 'There is no ship in this area.'
         return count
     else:
         return 'You should enter uppercase letters between A and J and numbers between 1 and 10'
 
-print(ship_size(read_field('field.txt'), ('E', 7)))
+print(ship_size(read_field('field.txt'), ('J', 4)))
 
 def is_valid(sequence):
     '''
