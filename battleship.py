@@ -94,12 +94,9 @@ def is_valid(sequence):
 
 print(is_valid(read_field('field.txt')))
 
-def field_to_str(filename):
-    f = open(filename, 'r', encoding='utf-8')
-    sequence = f.readlines()
-
-    print(field_to_str('field.txt'))
-    pass
+def field_to_str(sequence):
+    return '\n'.join(sequence)
+print(field_to_str(read_field('field.txt')))
 
 def generate_field():
     pass
