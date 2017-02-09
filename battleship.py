@@ -55,11 +55,19 @@ def ship_size(sequence, point):
             left = 0
             up = 0
             down = 0
+            lst = []
+            lst.append((point[0], coordinates + 1))
             try:
                 while ryadok[poryadok + 1] == '*':
                     count += 1
                     poryadok += 1
                     right += 1
+                    if right != 0:
+                        for i in pairs:
+                            if (poryadok + 1) in i:
+                                new_point = i[0]
+                                break
+                        lst.append((new_point, coordinates + 1))
             except IndexError:
                 pass
             poryadok -= right
@@ -70,6 +78,11 @@ def ship_size(sequence, point):
                     count += 1
                     poryadok -= 1
                     left -= 1
+                    if left != 0:
+                        for i in pairs:
+                            if (poryadok + 1) in i:
+                                new_point = i[0]
+                        lst.append((new_point, coordinates + 1))
             except IndexError:
                 pass
             poryadok += left
@@ -78,6 +91,12 @@ def ship_size(sequence, point):
                     count += 1
                     coordinates += 1
                     down += 1
+                    if down != 0:
+                        for i in pairs:
+                            if (poryadok + 1) in i:
+                                new_point = i[0]
+                                break
+                        lst.append((new_point, coordinates + 1))
             except IndexError:
                 pass
             coordinates -= down
@@ -86,16 +105,22 @@ def ship_size(sequence, point):
                     count += 1
                     coordinates -= 1
                     up += 1
+                    if up != 0:
+                        for i in pairs:
+                            if (poryadok + 1) in i:
+                                new_point = i[0]
+                                break
+                        lst.append((new_point, coordinates - 1))
             except IndexError:
                 pass
             coordinates += up
         else:
              return 'There is no ship in this area.'
-        return count
+        return (count, lst)
     else:
         return 'You should enter uppercase letters between A and J and numbers between 1 and 10'
 
-print(ship_size(read_field('field.txt'), ('I', 7)))
+print(ship_size(read_field('field.txt'), ('I', 6)))
 
 def is_valid(sequence):
     '''
